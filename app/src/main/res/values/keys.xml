@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+  This file contains preference keys and preference list values.
+  These should not be translated 
+-->
+<resources>
+
+  <string name="FSA_label">Tasks Shortcut</string>
+  <string name="caldav">CalDAV</string>
+  <string name="etesync">EteSync</string>
+  <string name="etesync_url">https://api.etesync.com</string>
+  <string name="help_url_sync">https://tasks.org/sync</string>
+
+  <string name="p_date_shortcut_morning">date_shortcut_morning</string>
+  <string name="p_date_shortcut_afternoon">date_shortcut_afternoon</string>
+  <string name="p_date_shortcut_evening">date_shortcut_evening</string>
+  <string name="p_date_shortcut_night">date_shortcut_night</string>
+
+  <string name="read_permission_desc">read tasks, display task filters</string>
+
+  <!-- ======================================================== REMINDERS == -->
+
+  <string name="p_attachment_dir">custom_files_dir</string>
+  <string name="p_backup_dir">p_backup_dir</string>
+  <string name="p_google_drive_backup">p_google_drive_backup</string>
+  <string name="p_google_drive_backup_account">p_google_drive_backup_account</string>
+  <string name="p_google_drive_backup_folder">p_google_drive_backup_folder</string>
+  <string name="p_rmd_enabled">notif_enabled</string>
+  <!-- boolean : whether to enable quiet hours or not -->
+  <string name="p_rmd_enable_quiet">enable_qhours</string>
+
+  <!-- hour to start quiet hours (inclusive) -->
+  <string name="p_rmd_quietStart">notif_qstart_new</string>
+
+  <!-- hour to end quiet hours (non-inclusive) -->
+  <string name="p_rmd_quietEnd">notif_qend_new</string>
+
+  <!-- reminder time when task doesn't have a due time (hour of day) -->
+  <string name="p_rmd_time">reminder_time_new</string>
+
+  <!-- whether "clear all notifications" clears astrid notifications -->
+  <string name="p_rmd_persistent">notif_annoy</string>
+
+  <!-- whether to vibrate phone when reminder fires -->
+  <string name="p_rmd_vibrate">notif_vibrate</string>
+
+  <!-- ringtone to use for notifications -->
+  <string name="p_rmd_ringtone">notification_ringtone</string>
+
+  <!-- default random reminder setting (in hours) -->
+  <string name="p_rmd_default_random_hours">notif_default_reminder</string>
+
+  <!-- calendar reminders preference -->
+  <string name="p_calendar_reminders">p_calendar_reminder</string>
+
+  <!-- filters to show -->
+  <string name="p_filters_enabled">drawer_filters_enabled</string>
+  <string name="p_show_today_filter">p_show_today_f</string>
+  <string name="p_show_recently_modified_filter">p_show_recently_modified_f</string>
+
+  <string name="p_tags_enabled">drawer_tags_enabled</string>
+  <string name="p_tags_hide_unused">drawer_tags_hide_unused</string>
+  <string name="p_places_enabled">drawer_places_enabled</string>
+  <string name="p_lists_enabled">drawer_lists_enabled</string>
+  <string name="p_places_hide_unused">drawer_places_hide_unused</string>
+
+  <!-- show comments in task edit -->
+  <string name="p_show_task_edit_comments">p_show_task_edit_comments</string>
+
+  <string-array name="TEA_reminder_random_hours">
+    <!-- values (in hours) associated with items above. -->
+    <item>1</item>
+    <item>24</item>
+    <item>168</item>
+    <item>336</item>
+    <item>730</item>
+    <item>1460</item>
+  </string-array>
+
+  <string-array name="EPr_reminder_random_hours">
+    <!-- values (in hours) associated with random reminders above. -->
+    <item>0</item>
+    <item>1</item>
+    <item>24</item>
+    <item>168</item>
+    <item>336</item>
+    <item>730</item>
+    <item>1460</item>
+  </string-array>
+
+  <!-- ======================================================= APPEARANCE == -->
+
+  <string name="p_fontSize">font_size_v2</string>
+  <string name="p_rowPadding">row_padding</string>
+
+  <string name="p_voiceRemindersEnabled">voiceRemindersEnabled</string>
+
+  <string name="p_fullTaskTitle">fullTaskTitle</string>
+
+  <!-- ========================================================= DEFAULTS == -->
+
+  <!-- default urgency setting (corresponds to entry in TEA_urgency) -->
+  <string name="p_default_urgency_key">p_def_urg</string>
+
+  <string-array name="EPr_default_importance_values">
+    <!-- importance: labels that map EPr_default_importance items to task importance values. -->
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+  </string-array>
+
+  <string-array name="widget_spacing_titles">
+    <item>@string/settings_default</item>
+    <item>@string/compact</item>
+    <item>@string/none</item>
+  </string-array>
+
+  <string-array name="widget_spacing_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+  </string-array>
+
+  <string-array name="widget_empty_click_titles">
+    <item>@string/widget_do_nothing</item>
+    <item>@string/widget_open_list</item>
+  </string-array>
+
+  <string-array name="widget_empty_click_values">
+    <item>0</item>
+    <item>1</item>
+  </string-array>
+
+  <string-array name="widget_due_date_click_titles">
+    <item>@string/widget_due_date_reschedule</item>
+    <item>@string/widget_do_nothing</item>
+  </string-array>
+
+  <string-array name="widget_due_date_click_values">
+    <item>0</item>
+    <item>1</item>
+  </string-array>
+
+  <string-array name="widget_due_date_position_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+  </string-array>
+
+  <string-array name="widget_due_date_position">
+    <item>@string/widget_due_date_after_title</item>
+    <item>@string/widget_due_date_below_title</item>
+    <item>@string/widget_due_date_hidden</item>
+  </string-array>
+
+  <string-array name="EPr_default_urgency_values">
+    <!-- urgency: labels that map EPr_default_urgency items to index in TEA_urgency. -->
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+    <item>5</item>
+  </string-array>
+
+  <string-array name="EPr_default_hideUntil_values">
+    <!-- hideUntil: labels that map EPr_default_hideUntil items to index in TEA_hideUntil. -->
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+  </string-array>
+
+  <string-array name="EPr_default_reminders_values">
+    <!-- reminders: values that map EPr_default_reminders items to reminder flags. -->
+    <item>0</item>
+    <item>2</item>
+    <item>4</item>
+    <item>6</item>
+  </string-array>
+
+  <string-array name="EPr_default_reminders_mode_values">
+    <!-- reminders: values that map EPr_default_reminders items to reminder flags. -->
+    <item>0</item>
+    <item>16</item>
+    <item>8</item>
+  </string-array>
+
+  <!-- default importance setting (corresponds to task setting) -->
+  <string name="p_default_importance_key">p_def_imp</string>
+
+  <!-- default hide until setting (corresponds to entry in TEA_hideUntil) -->
+  <string name="p_default_hideUntil_key">p_def_hide</string>
+
+  <!-- default reminders setting (corresponds to reminder flags) -->
+  <string name="p_default_reminders_key">p_def_reminders</string>
+  <string name="p_default_location_reminder_key">p_def_location_reminders</string>
+  <string name="p_default_location_radius">p_def_location_radius</string>
+
+  <!-- default reminder mode setting (corresponds to entry in TEA_reminder_mode_once, TEA_reminder_mode_five, TEA_reminder_mode_nonstop) -->
+  <string name="p_default_reminders_mode_key">rmd_default_reminder_mode</string>
+
+  <!-- on calendar end at dealline if true, start at deadline if false -->
+  <string name="p_end_at_deadline">p_end_at_deadline</string>
+
+  <!-- ============================================================ OTHER == -->
+
+  <!-- Default Calendar Preference Key (do not translate) -->
+  <string name="gcal_p_default">default_calendar_id</string>
+
+  <string-array name="TEA_control_sets_beast">
+    <item>@string/TEA_control_when</item>
+    <item>@string/TEA_control_repeat</item>
+    <item>@string/TEA_control_importance</item>
+    <item>@string/TEA_control_location</item>
+    <item>@string/tags</item>
+    <item>@string/synchronization</item>
+    <item>@string/subtasks</item>
+    <item>@string/TEA_control_reminders</item>
+    <item>@string/TEA_control_files</item>
+    <item>@string/TEA_control_notes</item>
+    <item>@string/TEA_hideUntil_label</item>
+    <item>@string/TEA_control_gcal</item>
+    <item>@string/TEA_control_timer</item>
+    <item>@string/TEA_control_hidden_section</item>
+  </string-array>
+
+  <string name="TEA_ctrl_when_pref">TEA_ctrl_when_pref</string>
+  <string name="TEA_ctrl_repeat_pref">TEA_ctrl_repeat_pref</string>
+  <string name="TEA_ctrl_importance_pref">TEA_ctrl_importance_pref</string>
+  <string name="TEA_ctrl_subtask_pref">TEA_ctrl_subtask_pref</string>
+  <string name="TEA_ctrl_lists_pref">TEA_ctrl_lists_pref</string>
+  <string name="TEA_ctrl_notes_pref">TEA_ctrl_notes_pref</string>
+  <string name="TEA_ctrl_files_pref">TEA_ctrl_files_pref</string>
+  <string name="TEA_ctrl_hide_until_pref">TEA_ctrl_hide_until_pref</string>
+  <string name="TEA_ctrl_hide_section_pref">TEA_ctrl_hide_section_pref</string>
+  <string name="TEA_ctrl_locations_pref">TEA_ctrl_locations_pref</string>
+  <string name="TEA_ctrl_reminders_pref">TEA_ctrl_reminders_pref</string>
+  <string name="TEA_ctrl_timer_pref">TEA_ctrl_timer_pref</string>
+  <string name="TEA_ctrl_comments">TEA_ctrl_comments</string>
+  <string name="TEA_ctrl_gcal">TEA_ctrl_gcal</string>
+  <string name="TEA_ctrl_google_task_list">TEA_ctrl_gtask</string>
+  <string name="p_show_hidden_tasks">show_hidden_tasks</string>
+  <string name="p_show_completed_tasks">show_completed_tasks</string>
+  <string name="p_temporarily_show_completed_tasks">temporarily_show_completed_tasks</string>
+  <string name="p_reverse_sort">reverse_sort</string>
+  <string name="p_manual_sort">manual_sort</string>
+  <string name="p_astrid_sort">astrid_sort</string>
+  <string name="p_astrid_sort_enabled">astrid_sort_enabled</string>
+
+  <string-array name="TEA_control_sets_prefs">
+    <item>@string/TEA_ctrl_when_pref</item>
+    <item>@string/TEA_ctrl_repeat_pref</item>
+    <item>@string/TEA_ctrl_importance_pref</item>
+    <item>@string/TEA_ctrl_locations_pref</item>
+    <item>@string/TEA_ctrl_lists_pref</item>
+    <item>@string/TEA_ctrl_google_task_list</item>
+    <item>@string/TEA_ctrl_subtask_pref</item>
+    <item>@string/TEA_ctrl_reminders_pref</item>
+    <item>@string/TEA_ctrl_files_pref</item>
+    <item>@string/TEA_ctrl_notes_pref</item>
+    <item>@string/TEA_ctrl_hide_until_pref</item>
+    <item>@string/TEA_ctrl_gcal</item>
+    <item>@string/TEA_ctrl_timer_pref</item>
+    <item>@string/TEA_ctrl_hide_section_pref</item>
+  </string-array>
+
+  <string-array name="base_theme_names">
+    <item>@string/theme_light</item>
+    <item>@string/theme_black</item>
+    <item>@string/theme_dark</item>
+    <item>@string/theme_wallpaper</item>
+    <item>@string/theme_day_night</item>
+    <item>@string/theme_system_default</item>
+  </string-array>
+
+  <string-array name="EPr_default_reminders_mode">
+    <item>@string/ring_once</item>
+    <item>@string/ring_five_times</item>
+    <item>@string/ring_nonstop</item>
+  </string-array>
+
+  <string name="p_collect_statistics">collect_statistics</string>
+  <string name="p_back_button_saves_task">back_button_saves_task</string>
+
+  <string name="p_open_last_viewed_list">open_last_viewed_list</string>
+  <string name="p_last_viewed_list">last_viewed_list</string>
+  <string name="p_default_open_filter">default_list</string>
+
+  <string name="p_badges_enabled">badges_enabled</string>
+  <string name="p_badge_list">badge_list</string>
+  <string name="tasker_locale">Tasker/Locale</string>
+  <string name="p_theme">theme_style</string>
+  <string name="p_theme_color">theme_color</string>
+  <string name="p_theme_accent">theme_accent</string>
+  <string name="p_theme_launcher">theme_launcher</string>
+  <string name="p_language">language</string>
+  <string name="p_led_notification">led_notificatiWCAon</string>
+
+  <string name="p_widget_filter">widget-id-</string>
+  <string name="p_widget_theme">widget-theme-v2-</string>
+  <string name="p_widget_color">widget-color-</string>
+  <string name="p_widget_color_v2">widget-color-v2</string>
+  <string name="p_widget_opacity">widget-opacity-v3-</string>
+  <string name="p_widget_font_size">widget-font-size-</string>
+  <string name="p_widget_show_due_date">widget-show-due-date-</string>
+  <string name="p_widget_show_full_task_title">widget-show-full-task-title-</string>
+  <string name="p_widget_show_dividers">widget-show-dividers-</string>
+  <string name="p_widget_show_subtasks">widget-show-subtasks-</string>
+  <string name="p_widget_show_description">widget-show-description-</string>
+  <string name="p_widget_show_full_description">widget-show-full-description-</string>
+  <string name="p_widget_show_checkboxes">widget-show-checkboxes-</string>
+  <string name="p_widget_show_header">widget-show-header-</string>
+  <string name="p_widget_show_settings">widget-show-settings-</string>
+  <string name="p_widget_show_menu">widget-show-menu-</string>
+  <string name="p_widget_header_opacity">widget-header-opacity-</string>
+  <string name="p_widget_footer_opacity">widget-empty-space-opacity-</string>
+  <string name="p_widget_footer_click">widget-empty-space-click-</string>
+  <string name="p_widget_due_date_click">widget-due-date-click-</string>
+  <string name="p_widget_due_date_position">widget-due-date-position-</string>
+  <string name="p_widget_spacing">widget-spacing-</string>
+  <string name="p_dashclock_filter">dashclock_filter</string>
+  <string name="p_default_list">default_remote_list</string>
+
+  <string name="debug">Debug</string>
+  <string name="p_start_of_week">start_of_week</string>
+  <string name="p_background_sync">gtask_background_sync</string>
+  <string name="p_bundle_notifications">bundle_notifications</string>
+  <string name="p_strict_mode_vm">strict_mode_vm</string>
+  <string name="p_strict_mode_thread">strict_mode_thread</string>
+  <string name="p_leakcanary">p_leakcanary</string>
+  <string name="p_flipper">p_flipper</string>
+  <string name="p_debug_pro">debug_pro</string>
+  <string name="warned_play_services">warned_play_services</string>
+  <string name="p_background_sync_unmetered_only">background_sync_unmetered_only</string>
+  <string name="p_sync_ongoing">sync_ongoing</string>
+  <string name="p_last_backup">last_backup</string>
+  <string name="p_show_description">show_description</string>
+  <string name="p_show_full_description">show_full_description</string>
+  <string name="p_linkify_task_list">linkify_task_list</string>
+  <string name="p_linkify_task_edit">linkify_task_edit</string>
+  <string name="map_provider_mapbox">Mapbox</string>
+  <string name="map_provider_google">Google</string>
+  <string name="p_map_provider">map_provider</string>
+  <string name="p_place_provider">place_provider</string>
+  <string name="preference_screen">preference_screen</string>
+  <string name="p_add_to_top">google_tasks_add_to_top</string>
+  <string name="p_google_tasks_position_hack">google_tasks_position_hack</string>
+  <string name="google_tasks_position_hack">Custom order synchronization fix</string>
+  <string name="google_tasks_position_hack_summary">Always perform a full synchronization to workaround https://issuetracker.google.com/issues/132432317</string>
+  <string name="subscription_help_url">https://tasks.org/subscribe</string>
+  <string name="p_use_paged_queries">disable_subtasks</string>
+  <string name="p_disable_sort_groups">disable_sort_groups</string>
+  <string name="p_wearable_notifications">wearable_notifications</string>
+  <string name="p_notified_oauth_error">notified_oauth_error_%1$s_%2$s</string>
+  <string name="p_chip_style">chip_style</string>
+  <string name="p_chip_appearance">chip_appearance</string>
+  <string name="p_subtask_chips">chips_subtask</string>
+  <string name="p_place_chips">chips_place</string>
+  <string name="p_list_chips">chips_list</string>
+  <string name="p_tag_chips">chips_tag</string>
+  <string name="p_desaturate_colors">desaturate_colors</string>
+  <string name="p_collapse_filters">collapse_filters</string>
+  <string name="p_collapse_tags">collapse_tags</string>
+  <string name="p_collapse_locations">collapse_locations</string>
+  <string name="p_auto_dismiss_datetime_edit_screen">auto_dismiss_datetime_edit_screen</string>
+  <string name="p_auto_dismiss_datetime_list_screen">auto_dismiss_datetime_list_screen</string>
+  <string name="p_auto_dismiss_datetime_widget">auto_dismiss_datetime_widget</string>
+  <string name="p_hide_check_button">Hide check button</string>
+  <string name="p_show_whats_new">show_whats_new</string>
+  <string name="p_just_updated">just_updated</string>
+  <string name="p_clicked_rate">clicked_rate</string>
+
+  <string name="event_whats_new">whats_new</string>
+  <string name="param_whats_new_display_rate">display_rate</string>
+  <string name="param_whats_new_display_subscribe">display_subscribe</string>
+  <string name="param_user_no_churn">user_no_churn</string>
+  <string name="param_user_pro">user_pro</string>
+  <string name="param_click">click</string>
+  <string name="event_xml_import">xml_import</string>
+</resources>

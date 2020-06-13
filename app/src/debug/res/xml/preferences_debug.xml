@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <SwitchPreferenceCompat
+    android:key="@string/p_leakcanary"
+    android:title="@string/debug_leakcanary" />
+
+  <SwitchPreferenceCompat
+    android:key="@string/p_flipper"
+    android:title="@string/debug_flipper"/>
+
+  <SwitchPreferenceCompat
+    android:key="@string/p_strict_mode_thread"
+    android:title="@string/debug_strict_mode_thread"/>
+
+  <SwitchPreferenceCompat
+    android:key="@string/p_strict_mode_vm"
+    android:title="@string/debug_strict_mode_vm"/>
+
+  <SwitchPreferenceCompat
+    android:key="@string/p_debug_pro"
+    android:title="@string/debug_pro"/>
+
+  <Preference
+    android:key="@string/debug_reset_ssl"
+    android:title="@string/debug_reset_ssl" />
+
+  <Preference
+    android:key="@string/debug_themes"/>
+
+  <Preference
+    android:key="@string/debug_tasker"/>
+
+</PreferenceScreen>

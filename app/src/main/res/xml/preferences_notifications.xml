@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <Preference
+    android:icon="@drawable/ic_open_in_new_24px"
+    android:summary="@string/notification_troubleshooting_summary"
+    android:title="@string/troubleshooting">
+
+    <intent
+      android:action="android.intent.action.VIEW"
+      android:data="https://tasks.org/notifications" />
+
+  </Preference>
+
+  <Preference
+    android:key="@string/disable_battery_optimizations"
+    android:summary="@string/notification_disable_battery_optimizations_description"
+    android:title="@string/disable_battery_optimizations"
+    app:isPreferenceVisible="false"
+    app:icon="@drawable/ic_open_in_new_24px">
+
+    <intent android:action="android.settings.IGNORE_BATTERY_OPTIMIZATION_SETTINGS" />
+
+  </Preference>
+
+  <SwitchPreferenceCompat
+    android:defaultValue="true"
+    android:key="@string/p_rmd_enabled"
+    android:title="@string/enabled"
+    app:allowDividerAbove="true" />
+
+  <org.tasks.ui.TimePreference
+    android:defaultValue="@integer/default_remind_time"
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/p_rmd_time"
+    android:title="@string/rmd_EPr_rmd_time_title"
+    app:allowDividerAbove="true"
+    app:time_summary="@string/rmd_EPr_rmd_time_desc" />
+
+  <SwitchPreferenceCompat
+    android:defaultValue="true"
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/p_rmd_persistent"
+    android:summary="@string/persistent_notifications_description"
+    android:title="@string/persistent_notifications" />
+
+  <SwitchPreferenceCompat
+    android:defaultValue="true"
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/p_wearable_notifications"
+    android:summary="@string/wearable_notifications_summary"
+    android:title="@string/wearable_notifications" />
+
+  <SwitchPreferenceCompat
+    android:defaultValue="@bool/default_bundle_notifications"
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/p_bundle_notifications"
+    android:summary="@string/bundle_notifications_summary"
+    android:title="@string/bundle_notifications" />
+
+  <Preference
+    android:defaultValue="content://settings/system/notification_sound"
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/p_rmd_ringtone"
+    android:title="@string/sound" />
+
+  <SwitchPreferenceCompat
+    android:defaultValue="true"
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/p_rmd_vibrate"
+    android:title="@string/vibrations" />
+
+  <SwitchPreferenceCompat
+    android:defaultValue="true"
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/p_led_notification"
+    android:summary="@string/hardware_support_required"
+    android:title="@string/led_notification" />
+
+  <SwitchPreferenceCompat
+    android:defaultValue="false"
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/p_voiceRemindersEnabled"
+    android:summary="@string/EPr_voiceRemindersEnabled_desc_enabled"
+    android:title="@string/EPr_voiceRemindersEnabled_title" />
+
+  <Preference
+    android:dependency="@string/p_rmd_enabled"
+    android:title="@string/more_settings"
+    android:key="@string/more_settings"
+    android:summary="@string/more_notification_settings_summary"
+    app:icon="@drawable/ic_open_in_new_24px">
+
+    <intent android:action="android.settings.APP_NOTIFICATION_SETTINGS">
+      <!--suppress AndroidElementNotAllowed -->
+      <extra
+        android:name="android.provider.extra.APP_PACKAGE"
+        android:value="@string/app_package" />
+    </intent>
+
+  </Preference>
+
+  <PreferenceCategory android:title="@string/badges">
+
+    <SwitchPreferenceCompat
+      android:defaultValue="false"
+      android:key="@string/p_badges_enabled"
+      android:summary="@string/badges_description"
+      android:title="@string/enabled" />
+
+    <Preference
+      android:dependency="@string/p_badges_enabled"
+      android:key="@string/p_badge_list"
+      android:title="@string/list" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory android:title="@string/quiet_hours">
+
+    <SwitchPreferenceCompat
+      android:defaultValue="false"
+      android:dependency="@string/p_rmd_enabled"
+      android:key="@string/p_rmd_enable_quiet"
+      android:summary="@string/quiet_hours_summary"
+      android:title="@string/enabled" />
+
+    <org.tasks.ui.TimePreference
+      android:defaultValue="@integer/default_quiet_hours_start"
+      android:dependency="@string/p_rmd_enable_quiet"
+      android:key="@string/p_rmd_quietStart"
+      android:title="@string/rmd_EPr_quiet_hours_start_title" />
+
+    <org.tasks.ui.TimePreference
+      android:defaultValue="@integer/default_quiet_hours_end"
+      android:dependency="@string/p_rmd_enable_quiet"
+      android:key="@string/p_rmd_quietEnd"
+      android:title="@string/rmd_EPr_quiet_hours_end_title" />
+
+  </PreferenceCategory>
+
+</PreferenceScreen>

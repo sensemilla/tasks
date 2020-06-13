@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/header_gap"
+    android:paddingStart="@dimen/keyline_second"
+    android:paddingEnd="@dimen/keyline_first"
+    android:orientation="vertical">
+    <Switch
+      android:id="@+id/location_arrival"
+      android:layout_width="match_parent"
+      android:layout_height="?android:attr/listPreferredItemHeightSmall"
+      android:gravity="center_vertical"
+      android:text="@string/location_remind_arrival"
+      android:textAppearance="?attr/textAppearanceListItemSmall"/>
+    <Switch
+      android:id="@+id/location_departure"
+      android:layout_width="match_parent"
+      android:layout_height="?android:attr/listPreferredItemHeightSmall"
+      android:gravity="center_vertical"
+      android:text="@string/location_remind_departure"
+      android:textAppearance="?attr/textAppearanceListItemSmall"/>
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="?android:attr/listPreferredItemHeightSmall"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:text="@string/geofence_radius"
+        android:textAppearance="?attr/textAppearanceListItem"/>
+
+      <com.google.android.material.slider.Slider
+        android:id="@+id/slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:trackColorActive="?attr/colorSecondary"
+        app:thumbColor="?attr/colorSecondary"
+        app:tickColorActive="?attr/colorOnSecondary"
+        app:tickColorInactive="?attr/colorSecondary"
+        app:tickColor="@android:color/transparent"
+        app:trackColorInactive="@color/text_tertiary"/>
+
+  </LinearLayout>
+</ScrollView>

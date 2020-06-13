@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="changelog">
+        <item>Added \'☰ > Manage lists\'\n\t- Drag and drop to rearrange the drawer\n\t- Tap to edit or delete a list</item>
+        <item>Display 2 additional snooze options - @rangzen</item>
+        <item>Update translations</item>
+    </string-array>
+</resources>

@@ -1,0 +1,862 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  package="org.tasks"
+  android:installLocation="internalOnly">
+
+  <!-- ================================================== Used Permissions = -->
+
+  <!-- ********************************* -->
+  <!-- maps and location based reminders -->
+  <!-- ********************************* -->
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+  <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
+  <uses-feature
+    android:name="android.hardware.location"
+    android:required="false"/>
+  <uses-feature
+    android:name="android.hardware.location.gps"
+    android:required="false"/>
+
+  <!-- ************* -->
+  <!-- notifications -->
+  <!-- ************* -->
+  <uses-permission android:name="android.permission.VIBRATE"/>
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+  <!-- *************************** -->
+  <!-- google calendar integration -->
+  <!-- *************************** -->
+  <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
+  <uses-permission android:name="android.permission.READ_CALENDAR"/>
+
+  <!-- ****************** -->
+  <!-- creating shortcuts -->
+  <!-- ****************** -->
+  <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+
+  <!-- **************************************** -->
+  <!-- write backups and attachments to storage -->
+  <!-- **************************************** -->
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+  <!-- ******************************************* -->
+  <!-- scheduling reminders after rebooting device -->
+  <!-- ******************************************* -->
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+  <!-- ********************* -->
+  <!-- recording voice notes -->
+  <!-- ********************* -->
+  <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+  <uses-feature
+    android:name="android.hardware.microphone"
+    android:required="false"/>
+
+  <!-- *********************************** -->
+  <!-- keep device awake for notifications -->
+  <!-- *********************************** -->
+  <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+  <!-- ****************************************************** -->
+  <!-- caldav sync, google task sync, and google drive upload -->
+  <!-- ****************************************************** -->
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+  <!-- **************************************** -->
+  <!-- google task sync and google drive upload -->
+  <!-- **************************************** -->
+  <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+  <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH"/>
+  <uses-permission android:name="android.permission.GET_ACCOUNTS" android:maxSdkVersion="25"/>
+  <uses-permission android:name="android.permission.USE_CREDENTIALS" android:maxSdkVersion="22" />
+
+  <!-- ***************************** -->
+  <!-- Exclude OpenTasks permissions -->
+  <!-- ***************************** -->
+  <uses-permission android:name="org.dmfs.permission.READ_TASKS" tools:node="remove"/>
+  <uses-permission android:name="org.dmfs.permission.WRITE_TASKS" tools:node="remove"/>
+
+  <!-- ============================================== Exported Permissions = -->
+
+  <!-- for v2 tasks provider -->
+  <permission
+    android:description="@string/read_permission_desc"
+    android:label="@string/read_permission_label"
+    android:name="org.tasks.permission.READ_TASKS"
+    android:permissionGroup="android.permission-group.MESSAGES"
+    android:protectionLevel="normal"/>
+
+  <uses-permission android:name="org.tasks.permission.READ_TASKS"/>
+
+  <!-- ========================================================== Metadata = -->
+
+  <supports-screens
+    android:largeScreens="true"
+    android:xlargeScreens="true"/>
+
+  <uses-feature
+    android:name="android.hardware.touchscreen"
+    android:required="false"/>
+
+  <application
+    android:allowBackup="true"
+    android:backupAgent="org.tasks.backup.TasksBackupAgent"
+    android:networkSecurityConfig="@xml/network_security_config"
+    android:icon="@mipmap/ic_launcher_blue"
+    android:label="@string/app_name"
+    android:manageSpaceActivity="org.tasks.preferences.ManageSpaceActivity"
+    android:name=".Tasks"
+    android:roundIcon="@mipmap/ic_launcher_blue"
+    android:supportsRtl="true"
+    android:theme="@style/Tasks"
+    tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
+
+    <meta-data
+      android:name="firebase_crashlytics_collection_enabled"
+      android:value="false"/>
+
+    <meta-data
+      android:name="firebase_analytics_collection_enabled"
+      android:value="false"/>
+
+    <meta-data
+      android:name="google_analytics_adid_collection_enabled"
+      android:value="false" />
+
+    <meta-data
+      android:name="google_analytics_ssaid_collection_enabled"
+      android:value="false" />
+
+    <meta-data
+      android:name="google_analytics_default_allow_ad_personalization_signals"
+      android:value="false" />
+
+    <meta-data
+      android:name="com.google.android.backup.api_key"
+      android:value="@string/backup_api_key" />
+
+    <!-- ====================================================== Activities = -->
+
+    <activity
+      android:name=".activities.DateAndTimePickerActivity"
+      android:taskAffinity=""
+      android:theme="@style/TranslucentDialog"/>
+
+    <activity android:name=".location.LocationPickerActivity"/>
+
+    <activity
+      android:exported="true"
+      android:name=".activities.FilterSelectionActivity"
+      android:taskAffinity=""
+      android:theme="@style/TranslucentDialog"/>
+
+    <activity
+      android:name=".activities.CameraActivity"
+      android:theme="@style/TranslucentDialog"/>
+
+    <activity android:name="com.todoroo.astrid.activity.TaskEditActivity">
+      <intent-filter tools:ignore="AppLinkUrlError">
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:mimeType="vnd.android.cursor.item/task"/>
+      </intent-filter>
+    </activity>
+
+    <!-- Activity for selecting Android shortcut -->
+    <activity
+      android:label="@string/FSA_label"
+      android:name=".widget.ShortcutConfigActivity"
+      android:theme="@style/Tasks">
+      <intent-filter>
+        <action android:name="android.intent.action.CREATE_SHORTCUT"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+    </activity>
+
+    <!-- Activity launched from ShareLink menu item -->
+    <!-- TODO: clearTaskOnLaunch probable cause of #275 -->
+    <activity
+      android:clearTaskOnLaunch="true"
+      android:icon="@mipmap/ic_launcher_blue"
+      android:label="@string/action_create_new_task"
+      android:name="com.todoroo.astrid.activity.ShareLinkActivity"
+      android:roundIcon="@mipmap/ic_launcher_blue">
+      <intent-filter>
+        <action android:name="android.intent.action.PROCESS_TEXT"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:mimeType="text/plain"/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.SEND"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:mimeType="text/plain" />
+        <data android:mimeType="image/*" />
+        <data android:mimeType="application/*" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.SEND_MULTIPLE"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:mimeType="image/*" />
+      </intent-filter>
+    </activity>
+
+    <!-- Activity for preferences -->
+
+    <activity
+      android:excludeFromRecents="true"
+      android:exported="true"
+      android:label="@string/widget_settings"
+      android:name=".widget.WidgetConfigActivity"
+      android:taskAffinity=""
+      android:theme="@style/Tasks">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+      </intent-filter>
+    </activity>
+
+    <!-- ======================================================= Receivers = -->
+
+    <!-- widgets -->
+    <receiver
+      android:label="@string/app_name"
+      android:name=".widget.TasksWidget">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.appwidget.provider"
+        android:resource="@xml/scrollable_widget_provider_info"/>
+    </receiver>
+
+    <!-- ======================================================== Services = -->
+
+    <service
+      android:name=".widget.ScrollableWidgetUpdateService"
+      android:permission="android.permission.BIND_REMOTEVIEWS"/>
+
+    <!-- ======================================================= Providers = -->
+
+    <provider
+      android:name="androidx.work.impl.WorkManagerInitializer"
+      android:authorities="${applicationId}.workmanager-init"
+      tools:node="remove" />
+
+    <provider
+      android:authorities="${applicationId};${applicationId}.tasksprovider"
+      android:exported="true"
+      android:grantUriPermissions="true"
+      android:multiprocess="true"
+      android:name="com.todoroo.astrid.provider.Astrid2TaskProvider"
+      android:readPermission="org.tasks.permission.READ_TASKS"/>
+
+    <provider
+      android:authorities="${applicationId}.file_provider"
+      android:exported="false"
+      android:grantUriPermissions="true"
+      android:name="androidx.core.content.FileProvider">
+      <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/file_provider_paths"/>
+    </provider>
+
+    <!-- ========================================================= Plugins = -->
+
+    <activity
+      android:name="com.todoroo.astrid.activity.BeastModePreferences"
+      android:theme="@style/Tasks"/>
+
+    <activity
+      android:excludeFromRecents="true"
+      android:launchMode="singleTask"
+      android:name=".reminders.SnoozeActivity"
+      android:taskAffinity=""
+      android:theme="@style/TranslucentDialog"/>
+
+    <activity
+      android:excludeFromRecents="true"
+      android:launchMode="singleTask"
+      android:name=".reminders.NotificationActivity"
+      android:taskAffinity=""
+      android:theme="@style/TranslucentDialog"/>
+
+    <activity android:name=".activities.NavigationDrawerCustomization" />
+
+    <activity android:name=".activities.TagSettingsActivity"/>
+
+    <activity android:name=".activities.FilterSettingsActivity"/>
+
+    <activity
+      android:name=".caldav.CaldavAccountSettingsActivity"
+      android:theme="@style/Tasks"/>
+
+    <activity
+      android:name=".etesync.EteSyncAccountSettingsActivity"
+      android:theme="@style/Tasks" />
+
+    <activity
+      android:name=".caldav.CaldavCalendarSettingsActivity"
+      android:theme="@style/Tasks"/>
+
+    <activity
+      android:name=".caldav.LocalListSettingsActivity"
+      android:theme="@style/Tasks"/>
+
+    <activity
+      android:name=".activities.PlaceSettingsActivity"
+      android:theme="@style/Tasks" />
+
+    <activity
+      android:name="com.todoroo.astrid.gcal.CalendarReminderActivity"
+      android:theme="@style/TasksDialog"/>
+
+    <receiver android:name="com.todoroo.astrid.gcal.CalendarAlarmReceiver"/>
+
+    <activity android:name=".activities.GoogleTaskListSettingsActivity"/>
+
+    <activity
+      android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"
+      android:theme="@style/TranslucentDialog"/>
+
+    <activity
+      android:name=".drive.DriveLoginActivity"
+      android:theme="@style/TranslucentDialog" />
+
+    <activity
+      android:name=".voice.VoiceCommandActivity"
+      android:theme="@style/TranslucentDialog">
+      <intent-filter>
+        <action android:name="com.google.android.gm.action.AUTO_SEND"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:mimeType="text/plain"/>
+      </intent-filter>
+    </activity>
+
+    <receiver android:name=".receivers.BootCompletedReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+    </receiver>
+
+    <receiver android:name=".receivers.CompleteTaskReceiver"/>
+
+    <receiver android:name=".receivers.MyPackageReplacedReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+      </intent-filter>
+    </receiver>
+
+    <service
+      android:exported="false"
+      android:name=".receivers.RefreshReceiver"
+      android:permission="android.permission.BIND_JOB_SERVICE"/>
+
+    <service
+      android:exported="false"
+      android:name=".scheduling.NotificationSchedulerIntentService"
+      android:permission="android.permission.BIND_JOB_SERVICE"/>
+
+    <receiver android:name=".scheduling.CalendarNotificationIntentService$Broadcast"/>
+    <service
+      android:exported="false"
+      android:name=".scheduling.CalendarNotificationIntentService"
+      android:permission="android.permission.BIND_JOB_SERVICE"/>
+
+    <receiver android:name=".location.GeofenceTransitionsIntentService$Broadcast"/>
+    <service
+      android:exported="false"
+      android:name=".location.GeofenceTransitionsIntentService"
+      android:permission="android.permission.BIND_JOB_SERVICE"/>
+
+    <receiver android:name=".notifications.NotificationClearedReceiver"/>
+
+    <service
+      android:exported="false"
+      android:name=".locale.receiver.TaskerIntentService"
+      android:permission="android.permission.BIND_JOB_SERVICE"/>
+
+    <!-- Uses Library -->
+    <uses-library
+      android:name="com.google.android.maps"
+      android:required="false"/>
+
+    <!-- DashClock extension -->
+
+    <service
+      android:icon="@drawable/ic_check_white_24dp"
+      android:label="@string/app_name"
+      android:name=".dashclock.DashClockExtension"
+      android:permission="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA">
+      <intent-filter>
+        <action android:name="com.google.android.apps.dashclock.Extension"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="protocolVersion"
+        android:value="2"/>
+      <meta-data
+        android:name="worldReadable"
+        android:value="true"/>
+      <meta-data
+        android:name="description"
+        android:value="Display a count of active tasks"/>
+      <meta-data
+        android:name="settingsActivity"
+        android:value="org.tasks.dashclock.DashClockSettings"/>
+    </service>
+
+    <service
+      android:exported="false"
+      android:name=".jobs.NotificationService"/>
+
+    <activity
+      android:exported="true"
+      android:label="@string/app_name"
+      android:name=".dashclock.DashClockSettings"/>
+
+    <service
+      android:name=".widget.TileService"
+      android:icon="@drawable/ic_check_black_24dp"
+      android:label="@string/action_new_task"
+      android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+      <intent-filter>
+        <action
+          android:name="android.service.quicksettings.action.QS_TILE"/>
+      </intent-filter>
+    </service>
+
+    <!-- Tasker/Locale -->
+
+    <activity
+      android:enabled="true"
+      android:exported="true"
+      android:icon="@mipmap/ic_launcher_blue"
+      android:label="@string/tasker_create_task"
+      android:name=".locale.ui.activity.TaskerCreateTaskActivity"
+      android:theme="@style/Tasks"
+      android:uiOptions="splitActionBarWhenNarrow"
+      android:windowSoftInputMode="adjustResize"
+      tools:ignore="ExportedActivity">
+      <intent-filter>
+        <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING"/>
+      </intent-filter>
+    </activity>
+
+    <activity
+      android:exported="false"
+      android:label="@string/tasker_list_notification"
+      android:name=".locale.ui.activity.TaskerSettingsActivity"
+      android:theme="@style/Tasks"
+      android:uiOptions="splitActionBarWhenNarrow"
+      android:windowSoftInputMode="adjustResize"/>
+
+    <activity
+      android:name=".billing.PurchaseActivity"
+      android:theme="@style/Tasks" />
+
+    <activity-alias
+      android:enabled="true"
+      android:exported="true"
+      android:icon="@mipmap/ic_launcher_blue"
+      android:label="@string/tasker_list_notification"
+      android:name="com.twofortyfouram.locale.example.setting.toast.ui.activity.PluginActivity"
+      android:targetActivity=".locale.ui.activity.TaskerSettingsActivity"
+      tools:ignore="ExportedActivity">
+      <intent-filter>
+        <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING"/>
+      </intent-filter>
+    </activity-alias>
+
+    <receiver
+      android:enabled="true"
+      android:exported="true"
+      android:name=".locale.receiver.FireReceiver"
+      tools:ignore="ExportedReceiver">
+      <intent-filter>
+        <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING"/>
+      </intent-filter>
+    </receiver>
+
+    <activity
+      android:launchMode="singleTask"
+      android:name="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+      </intent-filter>
+    </activity>
+
+    <activity
+      android:name=".widget.WidgetClickActivity"
+      android:excludeFromRecents="true"
+      android:launchMode="singleTask"
+      android:taskAffinity=""
+      android:theme="@style/TranslucentDialog"/>
+
+    <activity android:name=".activities.attribution.AttributionActivity"/>
+
+    <activity android:name=".tags.TagPickerActivity" />
+
+    <activity
+      android:name=".etesync.EteSyncCalendarSettingsActivity"
+      android:theme="@style/Tasks" />
+
+    <activity
+      android:name=".etesync.EncryptionSettingsActivity"
+      android:theme="@style/Tasks" />
+
+    <activity
+      android:name=".preferences.MainPreferences"
+      android:theme="@style/Tasks" />
+
+    <activity
+      android:name=".preferences.HelpAndFeedback"
+      android:theme="@style/Tasks" />
+
+    <activity
+      android:name=".preferences.NotificationPreferences"
+      android:theme="@style/Tasks">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.NOTIFICATION_PREFERENCES" />
+      </intent-filter>
+    </activity>
+
+    <activity
+      android:name=".preferences.ManageSpaceActivity"
+      android:theme="@style/Tasks" />
+
+    <activity
+      android:name=".preferences.SyncPreferences"
+      android:theme="@style/Tasks" />
+
+    <!-- launcher icons -->
+
+    <activity-alias
+      android:enabled="true"
+      android:icon="@mipmap/ic_launcher_blue"
+      android:name="com.todoroo.astrid.activity.TaskListActivity"
+      android:roundIcon="@mipmap/ic_launcher_blue"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.app.shortcuts"
+        android:resource="@xml/shortcuts" />
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_blue_grey"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.BlueGrey"
+      android:roundIcon="@mipmap/ic_launcher_blue_grey"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.app.shortcuts"
+        android:resource="@xml/shortcuts" />
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_dark_grey"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.DarkGrey"
+      android:roundIcon="@mipmap/ic_launcher_dark_grey"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.app.shortcuts"
+        android:resource="@xml/shortcuts" />
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_red"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Red"
+      android:roundIcon="@mipmap/ic_launcher_red"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.app.shortcuts"
+        android:resource="@xml/shortcuts" />
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_pink"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Pink"
+      android:roundIcon="@mipmap/ic_launcher_pink"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.app.shortcuts"
+        android:resource="@xml/shortcuts" />
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_purple"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Purple"
+      android:roundIcon="@mipmap/ic_launcher_purple"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.app.shortcuts"
+        android:resource="@xml/shortcuts" />
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_deep_purple"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.DeepPurple"
+      android:roundIcon="@mipmap/ic_launcher_deep_purple"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.app.shortcuts"
+        android:resource="@xml/shortcuts" />
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_indigo"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Indigo"
+      android:roundIcon="@mipmap/ic_launcher_indigo"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.app.shortcuts"
+        android:resource="@xml/shortcuts" />
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_light_blue"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.LightBlue"
+      android:roundIcon="@mipmap/ic_launcher_light_blue"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.app.shortcuts"
+        android:resource="@xml/shortcuts" />
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_cyan"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Cyan"
+      android:roundIcon="@mipmap/ic_launcher_cyan"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.app.shortcuts"
+        android:resource="@xml/shortcuts" />
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_teal"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Teal"
+      android:roundIcon="@mipmap/ic_launcher_teal"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.app.shortcuts"
+        android:resource="@xml/shortcuts" />
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_green"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Green"
+      android:roundIcon="@mipmap/ic_launcher_green"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.app.shortcuts"
+        android:resource="@xml/shortcuts" />
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_light_green"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.LightGreen"
+      android:roundIcon="@mipmap/ic_launcher_light_green"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.app.shortcuts"
+        android:resource="@xml/shortcuts" />
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_lime"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Lime"
+      android:roundIcon="@mipmap/ic_launcher_lime"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.app.shortcuts"
+        android:resource="@xml/shortcuts" />
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_yellow"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Yellow"
+      android:roundIcon="@mipmap/ic_launcher_yellow"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.app.shortcuts"
+        android:resource="@xml/shortcuts" />
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_amber"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Amber"
+      android:roundIcon="@mipmap/ic_launcher_amber"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.app.shortcuts"
+        android:resource="@xml/shortcuts" />
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_orange"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Orange"
+      android:roundIcon="@mipmap/ic_launcher_orange"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.app.shortcuts"
+        android:resource="@xml/shortcuts" />
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_deep_orange"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.DeepOrange"
+      android:roundIcon="@mipmap/ic_launcher_deep_orange"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.app.shortcuts"
+        android:resource="@xml/shortcuts" />
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_brown"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Brown"
+      android:roundIcon="@mipmap/ic_launcher_brown"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.app.shortcuts"
+        android:resource="@xml/shortcuts" />
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_grey"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Grey"
+      android:roundIcon="@mipmap/ic_launcher_grey"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.app.shortcuts"
+        android:resource="@xml/shortcuts" />
+    </activity-alias>
+
+  </application>
+
+</manifest>
